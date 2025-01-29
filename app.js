@@ -199,33 +199,88 @@ class CampusPulse {
         const card = this.cardsContainer.querySelector('.card');
         const hammer = new Hammer(card);
 
-        hammer.get('pan').set({ direction: Hammer.DIRECTION_ALL });
-
-        hammer.on('pan', (e) => {
-            const deltaY = e.deltaY;
-            card.style.transform = `translateY(${deltaY}px) rotate(${deltaY * 0.1}deg)`;
+        // Configure Hammer for vertical swipes
+        hammer.get('pan').set({
+            direction: Hammer.DIRECTION_VERTICAL,
+            threshold: 10
         });
 
+        let startY = 0;
+        let isDragging = false;
+
+        // Handle pan start
+        hammer.on('panstart', (e) => {
+            isDragging = true;
+            startY = e.center.y;
+            card.style.transition = 'none';
+        });
+
+        // Handle pan movement
+        hammer.on('pan', (e) => {
+            if (!isDragging) return;
+            
+            const deltaY = e.center.y - startY;
+            const rotation = deltaY * 0.1; // Reduce rotation amount
+            
+            // Add visual feedback based on direction
+            if (deltaY < 0) {
+                card.style.backgroundColor = 'rgba(104, 219, 104, 0.1)'; // Green tint for up
+            } else {
+                card.style.backgroundColor = 'rgba(255, 107, 107, 0.1)'; // Red tint for down
+            }
+            
+            card.style.transform = `translateY(${deltaY}px) rotate(${rotation}deg)`;
+        });
+
+        // Handle pan end
         hammer.on('panend', (e) => {
-            if (Math.abs(e.deltaY) > 150) {
-                this.handleSwipe(e.deltaY > 0);
+            isDragging = false;
+            card.style.transition = 'transform 0.3s ease, background-color 0.3s ease';
+            card.style.backgroundColor = '';
+
+            const deltaY = e.center.y - startY;
+            const threshold = 100; // Reduce threshold for easier swipes
+
+            if (Math.abs(deltaY) > threshold) {
+                this.handleSwipe(deltaY > 0);
             } else {
                 card.style.transform = '';
+            }
+        });
+
+        // Add touch events for better mobile handling
+        card.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].clientY;
+        }, { passive: true });
+
+        // Add keyboard controls for laptop
+        document.addEventListener('keydown', (e) => {
+            if (!this.cardsContainer.querySelector('.card')) return;
+            
+            if (e.key === 'ArrowUp') {
+                this.handleSwipe(false);
+            } else if (e.key === 'ArrowDown') {
+                this.handleSwipe(true);
             }
         });
     }
 
     handleSwipe(isDown) {
         const card = this.cardsContainer.querySelector('.card');
-        const direction = isDown ? 'down' : 'up';
+        const direction = isDown ? 'Down' : 'Up';
         
-        card.classList.add(`animate__slide${direction}Out`);
+        // Add swipe animation class
+        card.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
+        card.style.transform = `translateY(${isDown ? '100%' : '-100%'}) rotate(${isDown ? '10deg' : '-10deg'})`;
+        card.style.opacity = '0';
         
-        if (!isDown) {
-            this.showAnswerModal();
-        } else {
-            this.moveToNextCard();
-        }
+        setTimeout(() => {
+            if (!isDown) {
+                this.showAnswerModal();
+            } else {
+                this.moveToNextCard();
+            }
+        }, 300);
     }
 
     showAnswerModal() {
