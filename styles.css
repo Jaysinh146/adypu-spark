@@ -69,7 +69,9 @@ body {
     padding: 20px;
     cursor: grab;
     user-select: none;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    will-change: transform;
+    touch-action: none;
 }
 
 .card:hover {
@@ -102,11 +104,19 @@ body {
     margin-bottom: 60px;
     color: rgba(255, 255, 255, 0.6);
     text-align: center;
+    pointer-events: none;
 }
 
 .hint {
     margin: 10px 0;
     font-size: 14px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.4; }
+    50% { opacity: 1; }
+    100% { opacity: 0.4; }
 }
 
 .answer-modal {
@@ -461,6 +471,8 @@ body {
 }
 
 .spark-title {
+    position: relative;
+    display: inline-block;
     font-size: 48px;
     font-weight: bold;
     line-height: 1.2;
@@ -472,6 +484,7 @@ body {
     background: linear-gradient(45deg, #FF6B6B, #FF8E53);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    overflow: hidden;
 }
 
 .spark-tagline {
@@ -562,5 +575,13 @@ body {
     
     .spark-tagline {
         font-size: 16px;
+    }
+}
+
+/* Add visual feedback for touch devices */
+@media (hover: none) {
+    .card:active {
+        cursor: grabbing;
+        transform: scale(0.98);
     }
 } 
