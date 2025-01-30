@@ -197,72 +197,76 @@ class CampusPulse {
 
     setupHammer() {
         const card = this.cardsContainer.querySelector('.card');
-        const hammer = new Hammer(card);
-
-        // Configure Hammer for vertical swipes
-        hammer.get('pan').set({
-            direction: Hammer.DIRECTION_VERTICAL,
-            threshold: 10
+        const hammer = new Hammer.Manager(card, {
+            recognizers: [
+                [Hammer.Pan, {
+                    direction: Hammer.DIRECTION_VERTICAL,
+                    threshold: 5,
+                    pointers: 1
+                }]
+            ]
         });
+
+        // Remove previous event listeners
+        hammer.off('panstart panend pan');
 
         let startY = 0;
-        let isDragging = false;
+        let isActive = true;
 
-        // Handle pan start
         hammer.on('panstart', (e) => {
-            isDragging = true;
+            if (!isActive) return;
             startY = e.center.y;
             card.style.transition = 'none';
+            isActive = true;
         });
 
-        // Handle pan movement
         hammer.on('pan', (e) => {
-            if (!isDragging) return;
+            if (!isActive) return;
             
             const deltaY = e.center.y - startY;
-            const rotation = deltaY * 0.1; // Reduce rotation amount
-            
+            const rotation = deltaY * 0.15;
+            card.style.transform = `translateY(${deltaY}px) rotate(${rotation}deg)`;
+
             // Add visual feedback based on direction
             if (deltaY < 0) {
                 card.style.backgroundColor = 'rgba(104, 219, 104, 0.1)'; // Green tint for up
             } else {
                 card.style.backgroundColor = 'rgba(255, 107, 107, 0.1)'; // Red tint for down
             }
-            
-            card.style.transform = `translateY(${deltaY}px) rotate(${rotation}deg)`;
         });
 
-        // Handle pan end
         hammer.on('panend', (e) => {
-            isDragging = false;
+            if (!isActive) return;
+            isActive = false;
             card.style.transition = 'transform 0.3s ease, background-color 0.3s ease';
             card.style.backgroundColor = '';
 
             const deltaY = e.center.y - startY;
-            const threshold = 100; // Reduce threshold for easier swipes
+            const absDelta = Math.abs(deltaY);
+            const velocity = e.velocityY;
 
-            if (Math.abs(deltaY) > threshold) {
+            // More sensitive threshold calculation
+            const threshold = Math.min(100, card.offsetHeight * 0.3);
+            const isFastSwipe = absDelta > 50 || Math.abs(velocity) > 0.5;
+
+            if (absDelta > threshold || isFastSwipe) {
                 this.handleSwipe(deltaY > 0);
             } else {
                 card.style.transform = '';
             }
         });
 
+        // Add keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (!isActive || !card) return;
+            if (e.key === 'ArrowUp') this.handleSwipe(false);
+            if (e.key === 'ArrowDown') this.handleSwipe(true);
+        });
+
         // Add touch events for better mobile handling
         card.addEventListener('touchstart', (e) => {
             startY = e.touches[0].clientY;
         }, { passive: true });
-
-        // Add keyboard controls for laptop
-        document.addEventListener('keydown', (e) => {
-            if (!this.cardsContainer.querySelector('.card')) return;
-            
-            if (e.key === 'ArrowUp') {
-                this.handleSwipe(false);
-            } else if (e.key === 'ArrowDown') {
-                this.handleSwipe(true);
-            }
-        });
     }
 
     handleSwipe(isDown) {
