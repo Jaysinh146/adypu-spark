@@ -330,7 +330,7 @@ class CampusPulse {
                 <p>You vibed with ${matchCount} people!</p>
                 <button class="retry-btn" onclick="location.reload()">Try Again Tomorrow</button>
                 <p style="margin-top: 20px; font-size: 14px; opacity: 0.8;">
-                    Made with ❤️ by Jaysinh & Pratham<br>
+                    Made with ❤️ in ULC<br>
                     <span style="font-size: 12px;">Crafted in ULC</span>
                 </p>
             </div>
