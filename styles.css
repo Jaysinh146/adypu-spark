@@ -30,9 +30,6 @@ body {
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    opacity: 0;
-    animation: fadeIn 1s ease-out forwards;
-    animation-delay: 3.2s;
 }
 
 .progress-bar {
@@ -69,9 +66,7 @@ body {
     padding: 20px;
     cursor: grab;
     user-select: none;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    will-change: transform;
-    touch-action: none;
+    transition: transform 0.3s ease;
 }
 
 .card:hover {
@@ -104,19 +99,11 @@ body {
     margin-bottom: 60px;
     color: rgba(255, 255, 255, 0.6);
     text-align: center;
-    pointer-events: none;
 }
 
 .hint {
     margin: 10px 0;
     font-size: 14px;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { opacity: 0.4; }
-    50% { opacity: 1; }
-    100% { opacity: 0.4; }
 }
 
 .answer-modal {
@@ -217,12 +204,19 @@ body {
     overflow: hidden;
     transform-origin: center;
     -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .answer-option:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.3);
+    transform: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 .answer-option:active {
@@ -251,14 +245,14 @@ body {
 
 .ripple {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    width: 5px;
-    height: 5px;
+    pointer-events: none;
     background: rgba(255, 255, 255, 0.7);
     border-radius: 50%;
-    animation: rippleEffect 0.5s ease-out;
+    width: 100px;
+    height: 100px;
+    margin-left: -50px;
+    margin-top: -50px;
+    animation: rippleEffect 0.4s ease-out;
 }
 
 @keyframes rippleEffect {
@@ -440,148 +434,5 @@ body {
     .pre-register-form input {
         padding: 10px 15px;
         font-size: 14px;
-    }
-}
-
-/* Intro Animation Styles */
-.intro-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, #1a1a1a, #4a4a4a);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: fadeOut 0.5s ease-out forwards;
-    animation-delay: 3s;
-}
-
-.intro-content {
-    text-align: center;
-    color: white;
-}
-
-.spark-logo {
-    font-size: 60px;
-    animation: sparkle 2s ease-out;
-    margin-bottom: 20px;
-}
-
-.spark-title {
-    position: relative;
-    display: inline-block;
-    font-size: 48px;
-    font-weight: bold;
-    line-height: 1.2;
-    margin: 0;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: slideUp 0.8s ease-out forwards;
-    animation-delay: 0.5s;
-    background: linear-gradient(45deg, #FF6B6B, #FF8E53);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    overflow: hidden;
-}
-
-.spark-tagline {
-    font-size: 18px;
-    margin-top: 10px;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: slideUp 0.8s ease-out forwards;
-    animation-delay: 1s;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-@keyframes sparkle {
-    0% {
-        transform: scale(0) rotate(-180deg);
-        opacity: 0;
-    }
-    50% {
-        transform: scale(1.5) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(1) rotate(0deg);
-        opacity: 1;
-    }
-}
-
-@keyframes slideUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeOut {
-    to {
-        opacity: 0;
-        visibility: hidden;
-    }
-}
-
-/* Add shine effect */
-.spark-title::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.2),
-        transparent
-    );
-    animation: shine 2s infinite;
-    animation-delay: 1.5s;
-}
-
-@keyframes shine {
-    to {
-        left: 200%;
-    }
-}
-
-/* Hide app content during intro */
-.app-container {
-    opacity: 0;
-    animation: fadeIn 1s ease-out forwards;
-    animation-delay: 3.2s;
-}
-
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
-}
-
-/* Mobile optimizations for intro */
-@media (max-width: 480px) {
-    .spark-logo {
-        font-size: 48px;
-    }
-    
-    .spark-title {
-        font-size: 36px;
-    }
-    
-    .spark-tagline {
-        font-size: 16px;
-    }
-}
-
-/* Add visual feedback for touch devices */
-@media (hover: none) {
-    .card:active {
-        cursor: grabbing;
-        transform: scale(0.98);
     }
 } 
