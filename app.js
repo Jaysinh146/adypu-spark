@@ -1,159 +1,156 @@
 class CampusPulse {
     constructor() {
-        // Wait for intro animation to complete
-        setTimeout(() => {
-            this.questions = [
-                {
-                    text: "That 75% attendance rule got you like...",
-                    emoji: "😅",
-                    options: [
-                        "Proxy master activated",
-                        "Running to class at 8:59 AM",
-                        "Already at 74% - PANIC!",
-                        "Actually attending (rare species)"
-                    ]
-                },
-                {
-                    text: "What's really happening on your laptop in class?",
-                    emoji: "💻",
-                    options: [
-                        "Netflix with one airpod",
-                        "Valorant/BGMI grind",
-                        "Actually taking notes (cap)",
-                        "Coding/YouTube tutorials"
-                    ]
-                },
-                {
-                    text: "Best hangout spot in ADYPU?",
-                    emoji: "🌳",
-                    options: [
-                        "ADYPU Garden - Peace spot",
-                        "In front of Hostel - Squad area",
-                        "ULC Building entrance",
-                        "Tapri - The OG spot"
-                    ]
-                },
-                {
-                    text: "Your dream placement package?",
-                    emoji: "💼",
-                    options: [
-                        "8+ LPA - Basic survival",
-                        "12+ LPA - Living the dream",
-                        "15+ LPA - Now we're talking",
-                        "20+ LPA - Full optimism"
-                    ]
-                },
-                {
-                    text: "Seniors according to juniors are...",
-                    emoji: "👥",
-                    options: [
-                        "Scary at first, chill later",
-                        "Assignment lifesavers",
-                        "Placement guide heroes",
-                        "Too busy to notice us"
-                    ]
-                },
-                {
-                    text: "Juniors according to seniors are...",
-                    emoji: "🎭",
-                    options: [
-                        "Way too overconfident",
-                        "Always asking for notes",
-                        "Actually pretty cool",
-                        "Reminds us of our first year"
-                    ]
-                },
-                {
-                    text: "ADYPU in 5 years will be...",
-                    emoji: "🔮",
-                    options: [
-                        "Top tier placement records",
-                        "Better infrastructure",
-                        "More strict rules 💀",
-                        "Same vibes, different batch"
-                    ]
-                },
-                {
-                    text: "Most relatable lecture moment?",
-                    emoji: "💤",
-                    options: [
-                        "Death by PowerPoint",
-                        "'Any doubts?' *silence*",
-                        "That one interesting prof",
-                        "Back bench sleep session"
-                    ]
-                },
-                {
-                    text: "ULC building reality check:",
-                    emoji: "👀",
-                    options: [
-                        "Study with a view™",
-                        "'Group study' sessions",
-                        "Love stories in making",
-                        "Actually studying (rare)"
-                    ]
-                },
-                {
-                    text: "Which branch has the best Boys/Girls",
-                    emoji: "⚖️",
-                    options: [
-                        "Engineering 🥲",
-                        "Management has balance",
-                        "Design has ",
-                        "Still searching "
-                    ]
-                },
-                {
-                    text: "Your hostel mess survival strategy?",
-                    emoji: "🍽️",
-                    options: [
-                        "Tapri zindabad",
-                        "Food delivery apps MVP",
-                        "Weekend home food stock",
-                        "Adjusted to mess food"
-                    ]
-                },
-                {
-                    text: "Future of ADYPU looks...",
-                    emoji: "🚀",
-                    options: [
-                        "More companies visiting",
-                        "International collabs",
-                        "Bigger, better campus",
-                        "Competing with top unis"
-                    ]
-                },
-                {
-                    text: "Relationship status check:",
-                    emoji: "💝",
-                    options: [
-                        "Single & chilling",
-                        "Committed & thriving",
-                        "Complicated scene",
-                        "Focus on studies (sure)"
-                    ]
-                },
-                {
-                    text: "Your crush is from...",
-                    emoji: "💘",
-                    options: [
-                        "Same branch, same year",
-                        "Different branch senior",
-                        "Different branch junior",
-                        "Rather not say 🤫"
-                    ]
-                }
-            ];
-            
-            // Initialize the rest of the app
-            this.questions = this.shuffleArray(this.questions);
-            this.currentIndex = 0;
-            this.answeredCount = 0;
-            this.cardsContainer = document.querySelector('.cards-container');
-            this.progressFill = document.querySelector('.progress-fill');
-            
-            this.init();
-        }, 3200); // Match the intro animation duration
+        this.questions = [
+            {
+                text: "That 75% attendance rule got you like...",
+                emoji: "😅",
+                options: [
+                    "Proxy master activated",
+                    "Running to class at 8:59 AM",
+                    "Already at 74% - PANIC!",
+                    "Actually attending (rare species)"
+                ]
+            },
+            {
+                text: "What's really happening on your laptop in class?",
+                emoji: "💻",
+                options: [
+                    "Netflix with one airpod",
+                    "Valorant/BGMI grind",
+                    "Actually taking notes (cap)",
+                    "Coding/YouTube tutorials"
+                ]
+            },
+            {
+                text: "Best hangout spot in ADYPU?",
+                emoji: "🌳",
+                options: [
+                    "ADYPU Garden - Peace spot",
+                    "In front of Hostel - Squad area",
+                    "ULC Building entrance",
+                    "Tapri - The OG spot"
+                ]
+            },
+            {
+                text: "Your dream placement package?",
+                emoji: "💼",
+                options: [
+                    "8+ LPA - Basic survival",
+                    "12+ LPA - Living the dream",
+                    "15+ LPA - Now we're talking",
+                    "20+ LPA - Full optimism"
+                ]
+            },
+            {
+                text: "Seniors according to juniors are...",
+                emoji: "👥",
+                options: [
+                    "Scary at first, chill later",
+                    "Assignment lifesavers",
+                    "Placement guide heroes",
+                    "Too busy to notice us"
+                ]
+            },
+            {
+                text: "Juniors according to seniors are...",
+                emoji: "🎭",
+                options: [
+                    "Way too overconfident",
+                    "Always asking for notes",
+                    "Actually pretty cool",
+                    "Reminds us of our first year"
+                ]
+            },
+            {
+                text: "ADYPU in 5 years will be...",
+                emoji: "🔮",
+                options: [
+                    "Top tier placement records",
+                    "Better infrastructure",
+                    "More strict rules 💀",
+                    "Same vibes, different batch"
+                ]
+            },
+            {
+                text: "Most relatable lecture moment?",
+                emoji: "💤",
+                options: [
+                    "Death by PowerPoint",
+                    "'Any doubts?' *silence*",
+                    "That one interesting prof",
+                    "Back bench sleep session"
+                ]
+            },
+            {
+                text: "ULC building reality check:",
+                emoji: "👀",
+                options: [
+                    "Study with a view™",
+                    "'Group study' sessions",
+                    "Love stories in making",
+                    "Actually studying (rare)"
+                ]
+            },
+            {
+                text: "Which branch has the best Boys/Girls",
+                emoji: "⚖️",
+                options: [
+                    "Engineering 🥲",
+                    "Management has balance",
+                    "Design has ",
+                    "Still searching "
+                ]
+            },
+            {
+                text: "Your hostel mess survival strategy?",
+                emoji: "🍽️",
+                options: [
+                    "Tapri zindabad",
+                    "Food delivery apps MVP",
+                    "Weekend home food stock",
+                    "Adjusted to mess food"
+                ]
+            },
+            {
+                text: "Future of ADYPU looks...",
+                emoji: "🚀",
+                options: [
+                    "More companies visiting",
+                    "International collabs",
+                    "Bigger, better campus",
+                    "Competing with top unis"
+                ]
+            },
+            {
+                text: "Relationship status check:",
+                emoji: "💝",
+                options: [
+                    "Single & chilling",
+                    "Committed & thriving",
+                    "Complicated scene",
+                    "Focus on studies (sure)"
+                ]
+            },
+            {
+                text: "Your crush is from...",
+                emoji: "💘",
+                options: [
+                    "Same branch, same year",
+                    "Different branch senior",
+                    "Different branch junior",
+                    "Rather not say 🤫"
+                ]
+            }
+        ];
+        
+        // Shuffle questions at start
+        this.questions = this.shuffleArray(this.questions);
+        this.currentIndex = 0;
+        this.answeredCount = 0;
+        this.cardsContainer = document.querySelector('.cards-container');
+        this.progressFill = document.querySelector('.progress-fill');
+        
+        this.init();
     }
 
     // Fisher-Yates shuffle algorithm
@@ -197,94 +194,35 @@ class CampusPulse {
 
     setupHammer() {
         const card = this.cardsContainer.querySelector('.card');
-        const hammer = new Hammer.Manager(card, {
-            recognizers: [
-                [Hammer.Pan, {
-                    direction: Hammer.DIRECTION_VERTICAL,
-                    threshold: 5,
-                    pointers: 1
-                }]
-            ]
-        });
+        const hammer = new Hammer(card);
 
-        // Remove previous event listeners
-        hammer.off('panstart panend pan');
-
-        let startY = 0;
-        let isActive = true;
-
-        hammer.on('panstart', (e) => {
-            if (!isActive) return;
-            startY = e.center.y;
-            card.style.transition = 'none';
-            isActive = true;
-        });
+        hammer.get('pan').set({ direction: Hammer.DIRECTION_ALL });
 
         hammer.on('pan', (e) => {
-            if (!isActive) return;
-            
-            const deltaY = e.center.y - startY;
-            const rotation = deltaY * 0.15;
-            card.style.transform = `translateY(${deltaY}px) rotate(${rotation}deg)`;
-
-            // Add visual feedback based on direction
-            if (deltaY < 0) {
-                card.style.backgroundColor = 'rgba(104, 219, 104, 0.1)'; // Green tint for up
-            } else {
-                card.style.backgroundColor = 'rgba(255, 107, 107, 0.1)'; // Red tint for down
-            }
+            const deltaY = e.deltaY;
+            card.style.transform = `translateY(${deltaY}px) rotate(${deltaY * 0.1}deg)`;
         });
 
         hammer.on('panend', (e) => {
-            if (!isActive) return;
-            isActive = false;
-            card.style.transition = 'transform 0.3s ease, background-color 0.3s ease';
-            card.style.backgroundColor = '';
-
-            const deltaY = e.center.y - startY;
-            const absDelta = Math.abs(deltaY);
-            const velocity = e.velocityY;
-
-            // More sensitive threshold calculation
-            const threshold = Math.min(100, card.offsetHeight * 0.3);
-            const isFastSwipe = absDelta > 50 || Math.abs(velocity) > 0.5;
-
-            if (absDelta > threshold || isFastSwipe) {
-                this.handleSwipe(deltaY > 0);
+            if (Math.abs(e.deltaY) > 150) {
+                this.handleSwipe(e.deltaY > 0);
             } else {
                 card.style.transform = '';
             }
         });
-
-        // Add keyboard support
-        document.addEventListener('keydown', (e) => {
-            if (!isActive || !card) return;
-            if (e.key === 'ArrowUp') this.handleSwipe(false);
-            if (e.key === 'ArrowDown') this.handleSwipe(true);
-        });
-
-        // Add touch events for better mobile handling
-        card.addEventListener('touchstart', (e) => {
-            startY = e.touches[0].clientY;
-        }, { passive: true });
     }
 
     handleSwipe(isDown) {
         const card = this.cardsContainer.querySelector('.card');
-        const direction = isDown ? 'Down' : 'Up';
+        const direction = isDown ? 'down' : 'up';
         
-        // Add swipe animation class
-        card.style.transition = 'transform 0.5s ease, opacity 0.5s ease';
-        card.style.transform = `translateY(${isDown ? '100%' : '-100%'}) rotate(${isDown ? '10deg' : '-10deg'})`;
-        card.style.opacity = '0';
+        card.classList.add(`animate__slide${direction}Out`);
         
-        setTimeout(() => {
-            if (!isDown) {
-                this.showAnswerModal();
-            } else {
-                this.moveToNextCard();
-            }
-        }, 300);
+        if (!isDown) {
+            this.showAnswerModal();
+        } else {
+            this.moveToNextCard();
+        }
     }
 
     showAnswerModal() {
